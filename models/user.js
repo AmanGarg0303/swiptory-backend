@@ -18,7 +18,10 @@ const userSchema = new mongoose.Schema(
       },
     ],
     bookmarks: {
-      type: [],
+      type: [], // bookmarked stories ids
+    },
+    liked: {
+      type: [], // liked stories ids
     },
   },
   {
