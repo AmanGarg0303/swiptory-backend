@@ -8,6 +8,9 @@ const app = express();
 dotenv.config();
 const port = process.env.PORT || 8800;
 
+//middlewares
+app.use(express.json());
+
 // mongodb connection
 mongoose
   .connect(process.env.MONGO_URI)
