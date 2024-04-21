@@ -30,6 +30,7 @@ export const register = async (req, res, next) => {
       username,
       password: hashedPass,
     });
+
     // console.log(newUser);
     res.status(201).json(newUser);
   } catch (error) {
@@ -38,5 +39,23 @@ export const register = async (req, res, next) => {
 };
 
 export const login = async (req, res, next) => {
-  res.send("Login route");
+  try {
+    const { username, password } = req.body;
+    if (!username || !password)
+      return next(createError(400, "All fields are required!"));
+
+    const user = await User.findOne({ username });
+    if (!user) return next(createError(404, "Username not found!"));
+
+    const isPassCorrect = await bcrypt.compare(password, user.password);
+
+    if (isPassCorrect) {
+      const { password, ...details } = user._doc;
+      res.status(200).json(details);
+    } else {
+      return next(createError(400, "Invalid credentials!"));
+    }
+  } catch (error) {
+    next(error);
+  }
 };
