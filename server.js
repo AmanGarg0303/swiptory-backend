@@ -2,11 +2,13 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
+import { errorHandler } from "./middlewares/errorMiddleware.js";
 
 const app = express();
 dotenv.config();
 const port = process.env.PORT || 8800;
 
+// mongodb connection
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
@@ -24,7 +26,11 @@ mongoose.connection.on("connected", () => {
   console.log("MongoDB connected!");
 });
 
+// Routes
 app.use("/api/auth", authRoutes);
+
+// Error handling
+app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`Server listening on ${port}`);
