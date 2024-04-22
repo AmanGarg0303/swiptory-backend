@@ -3,14 +3,16 @@ import createError from "../utils/createError.js";
 
 export const createPost = async (req, res, next) => {
   try {
-    const { userId, post, category } = req.body;
-    if (!userId || !post || !category)
+    const user = req.user;
+
+    const { post, category } = req.body;
+    if (!post || !category)
       return next(createError(400, "All fields are required!"));
 
     const newPost = await Post({
       post,
       category,
-      userId,
+      userId: user._id,
     });
 
     await newPost.save();

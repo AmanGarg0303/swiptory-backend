@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
 import { errorHandler } from "./middlewares/errorMiddleware.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
 dotenv.config();
@@ -11,6 +12,7 @@ const port = process.env.PORT || 8800;
 
 //middlewares
 app.use(express.json());
+app.use(cookieParser());
 
 // mongodb connection
 mongoose

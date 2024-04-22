@@ -5,8 +5,9 @@ import {
   getPostById,
   getPosts,
 } from "../controllers/postController.js";
+import { protect } from "../middlewares/jwt.js";
 
-router.post("/", createPost);
+router.post("/", protect, createPost);
 
 router.get("/", getPosts);
 
