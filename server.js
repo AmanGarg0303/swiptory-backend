@@ -5,6 +5,7 @@ import authRoutes from "./routes/authRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
 import { errorHandler } from "./middlewares/errorMiddleware.js";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 const app = express();
 dotenv.config();
@@ -13,6 +14,7 @@ const port = process.env.PORT || 8800;
 //middlewares
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 // mongodb connection
 mongoose
