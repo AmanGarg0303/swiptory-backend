@@ -54,7 +54,7 @@ export const getPostsByCategory = async (req, res, next) => {
       return res.status(200).json(posts);
     }
 
-    const posts = await Post.find({ category });
+    const posts = await Post.find({ category: category.toLowerCase() });
 
     res.status(200).json(posts);
   } catch (error) {
