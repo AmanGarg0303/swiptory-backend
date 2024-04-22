@@ -45,3 +45,19 @@ export const getPostById = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getPostsByCategory = async (req, res, next) => {
+  try {
+    const category = req.params.category;
+    if (category == "all") {
+      const posts = await Post.find();
+      return res.status(200).json(posts);
+    }
+
+    const posts = await Post.find({ category });
+
+    res.status(200).json(posts);
+  } catch (error) {
+    next(error);
+  }
+};
