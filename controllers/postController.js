@@ -1,5 +1,6 @@
 import Post from "../models/post.js";
 import createError from "../utils/createError.js";
+import mongoose from "mongoose";
 
 export const createPost = async (req, res, next) => {
   try {
@@ -17,7 +18,7 @@ export const createPost = async (req, res, next) => {
 
     await newPost.save();
 
-    res.status(201).json(newPost);
+    res.status(201).json({ message: "Post created successfully!" });
   } catch (error) {
     next(error);
   }
@@ -57,6 +58,28 @@ export const getPostsByCategory = async (req, res, next) => {
     const posts = await Post.find({ category: category.toLowerCase() });
 
     res.status(200).json(posts);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updatePost = async (req, res, next) => {
+  try {
+    const postId = req.params.postId; // post to update
+
+    const realPost = await Post.findById(postId);
+    const user = req.user;
+
+    if (realPost.userId.toString() === user._id.toString()) {
+      const { post, category } = req.body;
+      if (!post || !category)
+        return next(createError(400, "All fields are required!"));
+
+      await realPost.updateOne({ $set: req.body });
+      return res.status(200).json({ message: "Post updated successfully!" });
+    } else {
+      res.status(403).json({ message: "Action forbidden!" });
+    }
   } catch (error) {
     next(error);
   }

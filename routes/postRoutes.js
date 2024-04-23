@@ -5,6 +5,7 @@ import {
   getPostById,
   getPosts,
   getPostsByCategory,
+  updatePost,
 } from "../controllers/postController.js";
 import { protect } from "../middlewares/jwt.js";
 
@@ -15,5 +16,7 @@ router.get("/", getPosts);
 router.get("/:postId", getPostById);
 
 router.get("/cat/:category", getPostsByCategory);
+
+router.put("/:postId", protect, updatePost);
 
 export default router;
