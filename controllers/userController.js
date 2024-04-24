@@ -65,3 +65,14 @@ export const likeUnlikePost = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getUserStories = async (req, res, next) => {
+  try {
+    const user = req.user;
+    const posts = await Post.find({ userId: user._id });
+
+    res.status(200).json(posts);
+  } catch (error) {
+    next(error);
+  }
+};
