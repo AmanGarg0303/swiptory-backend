@@ -10,7 +10,7 @@ import cors from "cors";
 
 const app = express();
 dotenv.config();
-const port = process.env.PORT || 8800;
+const port = process.env.PORT || 8000;
 
 //middlewares
 app.use(express.json());
