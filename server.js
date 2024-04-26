@@ -16,17 +16,17 @@ const port = process.env.PORT || 8000;
 app.use(express.json());
 app.use(cookieParser());
 
-const corsOptions = {
-  origin: [
-    "https://swiptory-frontend-three.vercel.app/",
-    "http://localhost:3000",
-  ],
-  optionsSuccessStatus: 200, // For legacy browser support
-  methods: "GET,PUT,POST,DELETE",
-  credentials: true,
-};
+// const corsOptions = {
+//   origin: [
+//     "https://swiptory-frontend-three.vercel.app/",
+//     "http://localhost:3000",
+//   ],
+//   optionsSuccessStatus: 200, // For legacy browser support
+//   methods: "GET,PUT,POST,DELETE",
+//   credentials: true,
+// };
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 // mongodb connection
 mongoose
