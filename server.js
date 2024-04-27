@@ -26,7 +26,15 @@ app.use(cookieParser());
 //   credentials: true,
 // };
 
-app.use(cors({ credentials: true }));
+app.use(
+  cors({
+    origin: [
+      "https://swiptory-frontend-three.vercel.app",
+      "http://localhost:3000",
+    ],
+    credentials: true,
+  })
+);
 
 // mongodb connection
 mongoose
