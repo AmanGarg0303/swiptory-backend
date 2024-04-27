@@ -26,7 +26,7 @@ app.use(cookieParser());
 //   credentials: true,
 // };
 
-app.use(cors());
+app.use(cors({ credentials: true }));
 
 // mongodb connection
 mongoose
